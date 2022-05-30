@@ -33,7 +33,7 @@ def manage_player(youthplayer_id):
             print(age_processed)
             #print(re.findall("[1-2][0-9] anni e [0-9]?[0-9][0-9] giorni", line))
         if "can be promoted".lower() in str(line).lower():
-            print(str(line))
+            #print(str(line))
             days_to_promo = 0
             try:
 
@@ -47,12 +47,16 @@ def manage_player(youthplayer_id):
 
     #estraggo la tabelle
     for link in soup.find_all("table"):
-
+        print("\n===\n")
+        #print(link)
+        #print("\n===\n")
         #ci son più tabelle. Prendo solo quella con i ruoli elencati, nella quale so per
         #certo che son presenti le stelline
-        if "Central defender".lower() in link.text.lower():
-
-
+        if "Central defender".lower() in link.text.lower()\
+                and "date nowrap".lower() not in str(link):
+            print("\n===\n")
+            print(link.get_text())
+            print("\n===\n")
             #dentro la tabella coi dati del giocatore cerco il tag td
             #che è quello dove sono "salvati" i dati delle prestazioni
             #ruolo per ruolo
@@ -84,33 +88,34 @@ def manage_player(youthplayer_id):
                         #seleziono quello senza "player-rating" per semplicita
                         #di elaborazione
                         if "stars-full" in str(el) and "player-rating" not in str(el):
-                            print("\n ### \n")
+                            #print("\n ### \n")
+                            a=0
                             #prendo la stringa e seleziono solo numeri e separatore decimale (punto)
-                            print("".join(_ for _ in str(el) if _ in ".1234567890"))
+                            #print("".join(_ for _ in str(el) if _ in ".1234567890"))
 
                     #associo posizione a stelline in base al position_counter
                     if position_counter == 0:
-                        print("keeper")
+                        #print("keeper")
                         stars_gk = "".join(_ for _ in str(el) if _ in ".1234567890")
                     if position_counter == 1:
-                        print("CD")
+                        #print("CD")
                         stars_cd = "".join(_ for _ in str(el) if _ in ".1234567890")
                     if position_counter == 2:
-                        print("WB")
+                        #print("WB")
                         stars_wb = "".join(_ for _ in str(el) if _ in ".1234567890")
                     if position_counter == 3:
-                        print("IM")
+                        #print("IM")
                         stars_im = "".join(_ for _ in str(el) if _ in ".1234567890")
                     if position_counter == 4:
-                        print("winger")
+                        #print("winger")
                         stars_wg = "".join(_ for _ in str(el) if _ in ".1234567890")
                     if position_counter == 5:
-                        print("forward")
+                        #print("forward")
                         stars_fw = "".join(_ for _ in str(el) if _ in ".1234567890")
-                    print("\n *** \n")
+                    #print("\n *** \n")
                 position_counter += .5
 
-
+    '''
     print("FINALE===")
     print("gk="+str(stars_gk))
     print("cd="+str(stars_cd))
@@ -118,7 +123,7 @@ def manage_player(youthplayer_id):
     print("im="+str(stars_im))
     print("wg="+str(stars_wg))
     print("fw="+str(stars_fw))
-
+    '''
     return str(stars_gk), str(stars_cd), str(stars_wb), str(stars_im), str(stars_wg), str(stars_fw), str(age_processed), str(days_to_promo)
 def manage_team(id):
     '''
@@ -216,8 +221,3 @@ with open(".\luca.csv", "w") as file_out:
 
                     ):
                         file_top_out.write(str_out+"\n")
-                    else:
-                        print("ciaooo")
-
-
-#manage_player(299062182)
