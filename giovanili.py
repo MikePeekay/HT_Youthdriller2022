@@ -39,7 +39,7 @@ def manage_player(youthplayer_id):
 
                 #to_promo = (re.findall("Can be promoted in [0-9]?[0-9]?[0-9] days", line))
                 #print("..."+to_promo+"...")
-                to_promo = "".join(_ for _ in str((re.findall("Can be promoted in [0-9]?[0-9]?[0-9] days", line))[0]) if _ in "1234567890")
+                to_promo = "".join(_ for _ in str((re.findall("Can be promoted in [0-9]?[0-9]?[0-9] day", line))[0]) if _ in "1234567890")
                 print(to_promo)
                 days_to_promo = str(to_promo)
             except:
@@ -165,7 +165,6 @@ def from_youth_team_get_youthplayerid_list(youthclubid):
             #print("---"+str(youth_player_id)+"---")
             list_of_youth_players.append(youth_player_id)
     return list_of_youth_players
-
 def create_csv_string(youthplayer_id, stars_gk, stars_cd, stars_wb, stars_im, stars_wg, stars_fw, age, to_promo ):
     str_out = ""
     str_out += "http://www.hattrick.org/goto.ashx?path=/Club/Players/YouthPlayer.aspx?YouthPlayerID=" + str(youthplayer_id) + ";"
@@ -180,21 +179,10 @@ def create_csv_string(youthplayer_id, stars_gk, stars_cd, stars_wb, stars_im, st
 
     return str_out
 
-#manage_player("https://stage.hattrick.org/Club/Players/YouthPlayer.aspx?YouthPlayerID=299062182")
-
-
-try:
-    os.remove(".\lucatest.csv")
-    shutil.copyfile(".\luca.csv", ".\lucatest.csv")
-except:
-    print("nada")
-
-#shutil.copyfile(".\luca.csv", ".\lucatest.csv")
 with open(".\luca.csv", "w") as file_out:
     with open(".\luca_top.csv", "w") as file_top_out:
         file_out.write("playerID;age;to_promo;GK;CD;WB;IM;WG;FW"+"\n")
         file_top_out.write("playerID;age;to_promo;GK;CD;WB;IM;WG;FW" + "\n")
-        #file_out.write("ciao")
 
         with open(".\\team_list.txt", "r") as team_list:
             for line in team_list:
