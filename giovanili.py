@@ -54,9 +54,7 @@ def manage_player(youthplayer_id):
         #certo che son presenti le stelline
         if "Central defender".lower() in link.text.lower()\
                 and "date nowrap".lower() not in str(link):
-            print("\n===\n")
-            print(link.get_text())
-            print("\n===\n")
+
             #dentro la tabella coi dati del giocatore cerco il tag td
             #che è quello dove sono "salvati" i dati delle prestazioni
             #ruolo per ruolo
